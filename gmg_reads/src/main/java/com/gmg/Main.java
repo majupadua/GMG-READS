@@ -230,6 +230,59 @@ public class Main {
         }
     }
 
+    // Método para cancelar um pedido em andamento
+    public static void cancelarPedido() {
+        if (pedidos.isEmpty()) {
+            System.out.println("Nenhum pedido feito.");
+            return;
+        }
     
+        visualizarPedidos();
+    
+        System.out.print("Digite o ID do pedido que deseja cancelar: ");
+        int idPedido = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+    
+        System.out.print("Digite o nome do livro que deseja cancelar: ");
+        String nomeLivro = scanner.nextLine();
+    
+        Pedido pedidoCancelado = null;
+        Livro livroCancelado = null;
+    
+        for (Pedido pedido : pedidos) {
+            if (pedido.getId() == idPedido && pedido.getStatus().equalsIgnoreCase("Em andamento")) {
+                pedidoCancelado = pedido;
+                for (Livro livro : pedido.getLivrosComprados()) {
+                    if (livro.getTitulo().equalsIgnoreCase(nomeLivro)) {
+                        livroCancelado = livro;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    
+        if (pedidoCancelado != null && livroCancelado != null) {
+            double valorCredito = livroCancelado.getPreco();
+            livroCancelado.setEstoque(livroCancelado.getEstoque() + 1); // Incrementar estoque do livro cancelado
+            cliente.adicionarCreditos(valorCredito);
+            pedidoCancelado.getLivrosComprados().remove(livroCancelado); // Remover livro do pedido
+            pedidoCancelado.setPrecoTotal(pedidoCancelado.getPrecoTotal() - valorCredito); // Atualizar preço total do pedido
+    
+            // Verificar se o pedido ficou vazio após o cancelamento do livro
+            if (pedidoCancelado.getLivrosComprados().isEmpty()) {
+                pedidos.remove(pedidoCancelado);
+            }
+    
+            System.out.println("Livro \"" + nomeLivro + "\" do pedido com ID " + idPedido + " cancelado com sucesso!");
+            System.out.println("Você recebeu " + valorCredito + " créditos por este cancelamento.");
+        } else {
+            System.out.println("Pedido não encontrado, não está em andamento ou livro não encontrado no pedido.");
+        }
+    }
+    
+    public static void visualizarCreditos() {
+        System.out.println("Créditos acumulados: " + cliente.getCreditos());
+    }
 
 }
