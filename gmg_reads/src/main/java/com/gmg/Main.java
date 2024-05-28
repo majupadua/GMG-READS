@@ -50,7 +50,7 @@ public class Main {
                 exibirBancoDeDados();
                 break;
             case 2:
-                realizarPedido();
+                // realizarPedido();
                 break;
             case 3:
                 carrinho.listarLivrosNoCarrinho();
@@ -58,7 +58,7 @@ public class Main {
                 System.out.print("Deseja finalizar o pedido (F) ou continuar comprando (C)? ");
                 String escolha = scanner.nextLine();
                 if (escolha.equalsIgnoreCase("F")) {
-                    finalizarPedido();
+                    // finalizarPedido();
                 }
                 break;
             case 4:
@@ -68,7 +68,7 @@ public class Main {
                 visualizarLivrosNaEstante();
                 break;
             case 6:
-                visualizarPedidos();
+                // visualizarPedidos();
                 break;
             case 7:
                 cancelarPedido();
@@ -190,26 +190,27 @@ public class Main {
         int escolhaEstante = scanner.nextInt();
         scanner.nextLine(); // Consumir a quebra de linha
 
-        String categoria;
+        String categoria = "";
         switch (escolhaEstante) {
             case 1:
                 categoria = "Já Lidos";
-                return categoria;
+                break;
             case 2:
                 categoria = "Leituras Atuais";
-                return categoria;
+                break;
             case 3:
                 categoria = "Leituras Futuras";
                 break;
             default:
                 System.out.println("Opção inválida.");
-                return;
+                break;
         }
+        return categoria;
     }
 
     // Método para adicionar o livro à estante
     public static void adicionarLivroAEstante(Livro livro) {
-        menuEstante();
+        String categoria = menuEstante();
 
         estante.adicionarLivro(categoria, livro);
         System.out.println("Livro adicionado à estante com sucesso na categoria: " + categoria);
@@ -217,7 +218,7 @@ public class Main {
 
     // Método para visualizar os livros na estante
     public static void visualizarLivrosNaEstante() {
-        menuEstante();
+        String categoria = menuEstante();
 
         ArrayList<Livro> livrosNaEstante = estante.buscarLivrosNaCategoria(categoria);
         if (!livrosNaEstante.isEmpty()) {
@@ -229,6 +230,7 @@ public class Main {
             System.out.println("Nenhum livro encontrado nesta estante.");
         }
     }
+
 
     // Método para cancelar um pedido em andamento
     public static void cancelarPedido() {

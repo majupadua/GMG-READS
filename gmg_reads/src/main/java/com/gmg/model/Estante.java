@@ -8,9 +8,9 @@ public class Estante {
 
     public Estante() {
         this.categorias = new HashMap<>();
-        adicionarCategoria("Lidos");
-        adicionarCategoria("Lendo");
-        adicionarCategoria("Quero Ler");
+        adicionarCategoria("Já Lidos");
+        adicionarCategoria("Leituras Atuais");
+        adicionarCategoria("Leituras Futuras");
     }
 
     // Método para adicionar uma nova categoria na estante
