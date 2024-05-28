@@ -230,7 +230,25 @@ public class Main {
             System.out.println("Nenhum livro encontrado nesta estante.");
         }
     }
-
+    
+    // Método para visualizar os pedidos passados
+    public static void visualizarPedidos() {
+        if (pedidos.isEmpty()) {
+            System.out.println("Nenhum pedido passado encontrado.");
+        } else {
+            System.out.println("\nPedidos Passados:");
+            for (Pedido pedido : pedidos) {
+                System.out.println("ID do Pedido: " + pedido.getId());
+                System.out.println("Preço Total: " + pedido.getPrecoTotal());
+                System.out.println("Status: " + pedido.getStatus());
+                System.out.println("Livros Comprados:");
+                for (Livro livro : pedido.getLivrosComprados()) {
+                    System.out.println(" - " + livro.getTitulo());
+                }
+                System.out.println();
+            }
+        }
+    }
 
     // Método para cancelar um pedido em andamento
     public static void cancelarPedido() {
