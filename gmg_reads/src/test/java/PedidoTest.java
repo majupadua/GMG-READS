@@ -69,20 +69,6 @@ public class PedidoTest {
         assertEquals(carrinhos, pedido.getCarrinhosFinalizados());
     }
 
-    // @Test
-    // public void testGetId() {
-    //     int id = pedido.getId();
-    //     assertEquals(3, id);
-    // }
-
-    // @Test
-    // public void testMultiplePedidosUniqueIds() {
-    //     Pedido pedido2 = new Pedido();
-    //     Pedido pedido3 = new Pedido();
-    //     assertEquals(7, pedido2.getId());
-    //     assertEquals(8, pedido3.getId());
-    // }
-
     @Test
     public void testSetPrecoTotal() {
         pedido.setPrecoTotal(100.0);
