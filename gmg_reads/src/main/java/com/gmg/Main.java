@@ -87,14 +87,39 @@ public class Main {
 
     // Método para ler arquivo binário do banco de dados
     public static void lerBancoDeDados() {
-        Livro livro1 = new Livro("x", "Machado de Assis", 29.90, 10);
-        Livro livro2 = new Livro("y", "J.R.R. Tolkien", 49.99, 15);
-        Livro livro3 = new Livro("z", "J.K. Rowling", 39.90, 20);
+        Livro livro1 = new Livro("Dom Casmurro", "Machado de Assis", 29.90, 10);
+        Livro livro2 = new Livro("O Senhor dos Anéis: A Sociedade do Anel", "J.R.R. Tolkien", 49.99, 15);
+        Livro livro3 = new Livro("Harry Potter e a Pedra Filosofal", "J.K. Rowling", 39.90, 20);
+        Livro livro4 = new Livro("1984", "George Orwell", 34.90, 12);
+        Livro livro5 = new Livro("Cem Anos de Solidão", "Gabriel García Márquez", 44.90, 18);
+        Livro livro6 = new Livro("O Alquimista", "Paulo Coelho", 29.90, 25);
+        Livro livro7 = new Livro("A Culpa é das Estrelas", "John Green", 35.90, 30);
+        Livro livro8 = new Livro("Orgulho e Preconceito", "Jane Austen", 27.90, 22);
+        Livro livro9 = new Livro("O Hobbit", "J.R.R. Tolkien", 39.99, 14);
+        Livro livro10 = new Livro("Moby Dick", "Herman Melville", 45.90, 8);
+        Livro livro11 = new Livro("A Menina que Roubava Livros", "Markus Zusak", 37.90, 17);
+        Livro livro12 = new Livro("O Pequeno Príncipe", "Antoine de Saint-Exupéry", 19.90, 40);
+        Livro livro13 = new Livro("O Nome da Rosa", "Umberto Eco", 49.90, 12);
+        Livro livro14 = new Livro("A Divina Comédia", "Dante Alighieri", 54.90, 5);
+        Livro livro15 = new Livro("A Guerra dos Tronos", "George R.R. Martin", 59.90, 10);
+
 
         // Adicionando os livros ao banco de dados
-        livros.add(livro1);
-        livros.add(livro2);
-        livros.add(livro3);    
+            livros.add(livro1);
+            livros.add(livro2);
+            livros.add(livro3);
+            livros.add(livro4);
+            livros.add(livro5);
+            livros.add(livro6);
+            livros.add(livro7);
+            livros.add(livro8);
+            livros.add(livro9);
+            livros.add(livro10);
+            livros.add(livro11);
+            livros.add(livro12);
+            livros.add(livro13);
+            livros.add(livro14);
+            livros.add(livro15);   
     }
 
     // Método para exibir o banco de dados completo
@@ -155,31 +180,37 @@ public class Main {
         System.out.println("Estoque: " + livro.getEstoque());
     }
 
-    // Método para adicionar o livro à estante
-    public static void adicionarLivroAEstante(Livro livro) {
-        System.out.println("Escolha a estante para adicionar o livro:");
-        System.out.println("1. Lidos");
-        System.out.println("2. Lendo");
-        System.out.println("3. Quero Ler");
+    //Método para menu das estantes
+    public static String menuEstante(){
+        System.out.println("Escolha a estante para visualizar os livros:");
+        System.out.println("1. Já Lidos");
+        System.out.println("2. Leituras Atuais");
+        System.out.println("3. Leituras Futuras");
         System.out.print("Escolha uma estante: ");
         int escolhaEstante = scanner.nextInt();
         scanner.nextLine(); // Consumir a quebra de linha
 
-        String categoria;
+        String categoria = "";
         switch (escolhaEstante) {
             case 1:
-                categoria = "Lidos";
+                categoria = "Já Lidos";
                 break;
             case 2:
-                categoria = "Lendo";
+                categoria = "Leituras Atuais";
                 break;
             case 3:
-                categoria = "Quero Ler";
+                categoria = "Leituras Futuras";
                 break;
             default:
                 System.out.println("Opção inválida.");
-                return;
+                break;
         }
+        return categoria;
+    }
+
+    // Método para adicionar o livro à estante
+    public static void adicionarLivroAEstante(Livro livro) {
+        String categoria = menuEstante();
 
         estante.adicionarLivro(categoria, livro);
         System.out.println("Livro adicionado à estante com sucesso na categoria: " + categoria);
@@ -187,29 +218,7 @@ public class Main {
 
     // Método para visualizar os livros na estante
     public static void visualizarLivrosNaEstante() {
-        System.out.println("Escolha a estante para visualizar os livros:");
-        System.out.println("1. Lidos");
-        System.out.println("2. Lendo");
-        System.out.println("3. Quero Ler");
-        System.out.print("Escolha uma estante: ");
-        int escolhaEstante = scanner.nextInt();
-        scanner.nextLine(); // Consumir a quebra de linha
-
-        String categoria;
-        switch (escolhaEstante) {
-            case 1:
-                categoria = "Lidos";
-                break;
-            case 2:
-                categoria = "Lendo";
-                break;
-            case 3:
-                categoria = "Quero Ler";
-                break;
-            default:
-                System.out.println("Opção inválida.");
-                return;
-        }
+        String categoria = menuEstante();
 
         ArrayList<Livro> livrosNaEstante = estante.buscarLivrosNaCategoria(categoria);
         if (!livrosNaEstante.isEmpty()) {
