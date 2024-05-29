@@ -93,4 +93,38 @@ public class ClienteTest {
         cliente.setNome("Maria");
         assertEquals("Maria", cliente.getNome());
     }
+    @Test
+    public void testAdicionarPedidoGet() {
+        cliente.adicionarPedido(pedido1);
+        assertEquals(pedido1, cliente.getHistoricoPedidos().get(0));
+    }
+
+    @Test
+    public void testAdicionarCreditosGet() {
+        cliente.adicionarCreditos(20.0);
+        assertEquals(20.0, cliente.getCreditos(), 0.001);
+    }
+
+    @Test
+    public void testAdicionarPrateleiraGet() {
+        ArrayList<Livro> livros = new ArrayList<>();
+        livros.add(livro1);
+        cliente.adicionarPrateleira("Lidos", livros);
+        assertEquals(livros, cliente.getHistoricoPrateleiras().get("Lidos"));
+    }
+
+    @Test
+    public void testAdicionarMultiplasPrateleiras() {
+        ArrayList<Livro> favoritos = new ArrayList<>();
+        favoritos.add(livro1);
+        ArrayList<Livro> lidos = new ArrayList<>();
+        lidos.add(livro2);
+        cliente.adicionarPrateleira("Favoritos", favoritos);
+        cliente.adicionarPrateleira("Lidos", lidos);
+        HashMap<String, ArrayList<Livro>> historicoPrateleiras = cliente.getHistoricoPrateleiras();
+        assertTrue(historicoPrateleiras.containsKey("Favoritos"));
+        assertTrue(historicoPrateleiras.containsKey("Lidos"));
+        assertEquals(favoritos, historicoPrateleiras.get("Favoritos"));
+        assertEquals(lidos, historicoPrateleiras.get("Lidos"));
+    }
 }
