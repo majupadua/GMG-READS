@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
@@ -24,6 +25,19 @@
                     <shutdown>kill</shutdown> <!-- Use it if required-->
                 </configuration>
             </plugin>
+            
+            <!-- Necessário para executar o JUnit em projetos Maven -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+
+            <!-- Necessário para executar o JUnit em projetos Maven -->
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+
         </plugins>
     </build>
 
