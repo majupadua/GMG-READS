@@ -1,4 +1,3 @@
-
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -60,6 +59,31 @@ public class CarrinhoTest {
         assertEquals(2, carrinho.getLivros().size());
         assertEquals(livro1, carrinho.getLivros().get(0));
         assertEquals(livro2, carrinho.getLivros().get(1));
+    }
+    @Test
+    public void testListarLivrosNoCarrinhoVazio() {
+        carrinho.listarLivrosNoCarrinho();
+        assertEquals("O carrinho está vazio.\n", outContent.toString());
+    }
+
+    @Test
+    public void testListarLivrosNoCarrinho() {
+        Livro livro1 = new Livro("Dom Casmurro", "Machado de Assis", 29.90, 10);
+        Livro livro2 = new Livro("Harry Potter", "J.K. Rowling", 35.50, 5);
+        carrinho.adicionarLivroCarrinho(livro1);
+        carrinho.adicionarLivroCarrinho(livro2);
+        outContent.reset();
+        carrinho.listarLivrosNoCarrinho();
+        String expectedOutput = "Livros no carrinho:\n- Dom Casmurro\n- Harry Potter\n";
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    public void testAdicionarLivroCarrinhoMensagem() {
+        Livro livro = new Livro("Dom Casmurro", "Machado de Assis", 29.90, 10);
+        outContent.reset();
+        carrinho.adicionarLivroCarrinho(livro);
+        assertEquals("Livro adicionado ao carrinho: Dom Casmurro\n", outContent.toString());
     }
 
     // Restaurar System.out para o estado original após os testes
