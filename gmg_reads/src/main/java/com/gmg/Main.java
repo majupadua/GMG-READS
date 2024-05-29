@@ -50,7 +50,7 @@ public class Main {
                 exibirBancoDeDados();
                 break;
             case 2:
-                // realizarPedido();
+                realizarPedido();
                 break;
             case 3:
                 carrinho.listarLivrosNoCarrinho();
@@ -58,7 +58,7 @@ public class Main {
                 System.out.print("Deseja finalizar o pedido (F) ou continuar comprando (C)? ");
                 String escolha = scanner.nextLine();
                 if (escolha.equalsIgnoreCase("F")) {
-                    // finalizarPedido();
+                    finalizarPedido();
                 }
                 break;
             case 4:
@@ -68,7 +68,7 @@ public class Main {
                 visualizarLivrosNaEstante();
                 break;
             case 6:
-                // visualizarPedidos();
+                visualizarPedidos();
                 break;
             case 7:
                 cancelarPedido();
@@ -85,41 +85,16 @@ public class Main {
         }
     }
 
-    // Método para ler banco de dados
+    // Método para ler arquivo binário do banco de dados
     public static void lerBancoDeDados() {
-        Livro livro1 = new Livro("Dom Casmurro", "Machado de Assis", 29.90, 10);
-        Livro livro2 = new Livro("O Senhor dos Anéis: A Sociedade do Anel", "J.R.R. Tolkien", 49.99, 15);
-        Livro livro3 = new Livro("Harry Potter e a Pedra Filosofal", "J.K. Rowling", 39.90, 20);
-        Livro livro4 = new Livro("1984", "George Orwell", 34.90, 12);
-        Livro livro5 = new Livro("Cem Anos de Solidão", "Gabriel García Márquez", 44.90, 18);
-        Livro livro6 = new Livro("O Alquimista", "Paulo Coelho", 29.90, 25);
-        Livro livro7 = new Livro("A Culpa é das Estrelas", "John Green", 35.90, 30);
-        Livro livro8 = new Livro("Orgulho e Preconceito", "Jane Austen", 27.90, 22);
-        Livro livro9 = new Livro("O Hobbit", "J.R.R. Tolkien", 39.99, 14);
-        Livro livro10 = new Livro("Moby Dick", "Herman Melville", 45.90, 8);
-        Livro livro11 = new Livro("A Menina que Roubava Livros", "Markus Zusak", 37.90, 17);
-        Livro livro12 = new Livro("O Pequeno Príncipe", "Antoine de Saint-Exupéry", 19.90, 40);
-        Livro livro13 = new Livro("O Nome da Rosa", "Umberto Eco", 49.90, 12);
-        Livro livro14 = new Livro("A Divina Comédia", "Dante Alighieri", 54.90, 5);
-        Livro livro15 = new Livro("A Guerra dos Tronos", "George R.R. Martin", 59.90, 10);
-
+        Livro livro1 = new Livro("x", "Machado de Assis", 29.90, 10);
+        Livro livro2 = new Livro("y", "J.R.R. Tolkien", 49.99, 15);
+        Livro livro3 = new Livro("z", "J.K. Rowling", 39.90, 20);
 
         // Adicionando os livros ao banco de dados
         livros.add(livro1);
         livros.add(livro2);
         livros.add(livro3);    
-        livros.add(livro4); 
-        livros.add(livro5); 
-        livros.add(livro6); 
-        livros.add(livro7); 
-        livros.add(livro8); 
-        livros.add(livro9); 
-        livros.add(livro10); 
-        livros.add(livro11); 
-        livros.add(livro12); 
-        livros.add(livro13); 
-        livros.add(livro14); 
-        livros.add(livro15); 
     }
 
     // Método para exibir o banco de dados completo
@@ -180,37 +155,31 @@ public class Main {
         System.out.println("Estoque: " + livro.getEstoque());
     }
 
-    //Método para menu das estantes
-    public static String menuEstante(){
-        System.out.println("Escolha a estante para visualizar os livros:");
-        System.out.println("1. Já Lidos");
-        System.out.println("2. Leituras Atuais");
-        System.out.println("3. Leituras Futuras");
+    // Método para adicionar o livro à estante
+    public static void adicionarLivroAEstante(Livro livro) {
+        System.out.println("Escolha a estante para adicionar o livro:");
+        System.out.println("1. Lidos");
+        System.out.println("2. Lendo");
+        System.out.println("3. Quero Ler");
         System.out.print("Escolha uma estante: ");
         int escolhaEstante = scanner.nextInt();
         scanner.nextLine(); // Consumir a quebra de linha
 
-        String categoria = "";
+        String categoria;
         switch (escolhaEstante) {
             case 1:
-                categoria = "Já Lidos";
+                categoria = "Lidos";
                 break;
             case 2:
-                categoria = "Leituras Atuais";
+                categoria = "Lendo";
                 break;
             case 3:
-                categoria = "Leituras Futuras";
+                categoria = "Quero Ler";
                 break;
             default:
                 System.out.println("Opção inválida.");
-                break;
+                return;
         }
-        return categoria;
-    }
-
-    // Método para adicionar o livro à estante
-    public static void adicionarLivroAEstante(Livro livro) {
-        String categoria = menuEstante();
 
         estante.adicionarLivro(categoria, livro);
         System.out.println("Livro adicionado à estante com sucesso na categoria: " + categoria);
@@ -218,7 +187,29 @@ public class Main {
 
     // Método para visualizar os livros na estante
     public static void visualizarLivrosNaEstante() {
-        String categoria = menuEstante();
+        System.out.println("Escolha a estante para visualizar os livros:");
+        System.out.println("1. Lidos");
+        System.out.println("2. Lendo");
+        System.out.println("3. Quero Ler");
+        System.out.print("Escolha uma estante: ");
+        int escolhaEstante = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+
+        String categoria;
+        switch (escolhaEstante) {
+            case 1:
+                categoria = "Lidos";
+                break;
+            case 2:
+                categoria = "Lendo";
+                break;
+            case 3:
+                categoria = "Quero Ler";
+                break;
+            default:
+                System.out.println("Opção inválida.");
+                return;
+        }
 
         ArrayList<Livro> livrosNaEstante = estante.buscarLivrosNaCategoria(categoria);
         if (!livrosNaEstante.isEmpty()) {
@@ -230,7 +221,43 @@ public class Main {
             System.out.println("Nenhum livro encontrado nesta estante.");
         }
     }
-    
+
+    // Método para realizar um pedido
+    public static void realizarPedido() {
+        System.out.print("Digite o título do livro que deseja procurar: ");
+        String titulo = scanner.nextLine();
+
+        Livro livroEncontrado = procurarLivro(titulo);
+        if (livroEncontrado != null) {
+            exibirDetalhesLivro(livroEncontrado);
+            System.out.print("Deseja adicionar este livro ao carrinho? (S/N): ");
+            String escolha = scanner.nextLine();
+            if (escolha.equalsIgnoreCase("S")) {
+                carrinho.adicionarLivroCarrinho(livroEncontrado); // Adicionando o livro ao carrinho
+            }
+        } else {
+            System.out.println("Livro não encontrado no banco de dados.");
+        }
+    }
+
+    // Método para finalizar o pedido
+    public static void finalizarPedido() {
+        if (carrinho.getLivros().isEmpty()) {
+            System.out.println("Não é possível finalizar um pedido sem itens no carrinho.");
+            return;
+        }
+
+        Pedido pedido = new Pedido();
+        pedido.adicionarCarrinhoFinalizado(carrinho);
+        pedidos.add(pedido);
+
+        System.out.println("Pedido finalizado com sucesso!");
+        carrinho.atualizarEstoque();
+        carrinho = new Carrinho();
+
+        metodoPagamento(); // Chamar o método de pagamento após finalizar o pedido
+    }
+
     // Método para visualizar os pedidos passados
     public static void visualizarPedidos() {
         if (pedidos.isEmpty()) {
@@ -303,6 +330,67 @@ public class Main {
     
     public static void visualizarCreditos() {
         System.out.println("Créditos acumulados: " + cliente.getCreditos());
+    }
+
+    // Método para o método de pagamento
+    public static void metodoPagamento() {
+        Pedido ultimoPedido = pedidos.get(pedidos.size() - 1);
+        double total = ultimoPedido.getPrecoTotal();
+        double creditosDisponiveis = ultimoPedido.getCreditosAcumulados(); // Usando créditos acumulados
+
+        System.out.println("Total do pedido: " + total);
+        System.out.println("Créditos disponíveis: " + creditosDisponiveis);
+
+        if (creditosDisponiveis > 0) {
+            System.out.print("Deseja utilizar seus créditos? (S/N): ");
+            String resposta = scanner.nextLine();
+
+            if (resposta.equalsIgnoreCase("S")) {
+                if (creditosDisponiveis >= total) {
+                    System.out.println("Pedido pago com créditos.");
+                    creditosDisponiveis -= total;
+                    total = 0;
+                    ultimoPedido.setCreditosAcumulados(creditosDisponiveis);
+                } else {
+                    System.out.println("Valor dos créditos aplicado ao total do pedido.");
+                    total -= creditosDisponiveis;
+                    ultimoPedido.setCreditosAcumulados(0);
+
+                }
+            }
+        }
+
+        while (total > 0) {
+            if (creditosDisponiveis != 0)
+                System.out.println("Restante a pagar: " + total);
+            System.out.println("Escolha o método de pagamento:");
+            System.out.println("1. Cartão de Crédito");
+            System.out.println("2. Cartão de Débito");
+            System.out.println("3. PIX");
+            System.out.print("Escolha uma opção: ");
+
+            int escolha = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer de entrada
+
+            switch (escolha) {
+                case 1:
+                    System.out.println(
+                    "Pagamento com Cartão de Crédito aprovado. Mandamos um email com as informações do pedido.");
+                    total = 0;
+                    break;
+                case 2:
+                    System.out.println(
+                    "Pagamento com Cartão de Débito aprovado. Mandamos um email com as informações do pedido.");
+                    total = 0;
+                    break;
+                case 3:
+                    System.out.println("Pagamento com PIX aprovado. Mandamos um email com as informações do pedido.");
+                    total = 0;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha um método de pagamento válido.");
+            }
+        }
     }
 
 }
